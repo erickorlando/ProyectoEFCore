@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using ProyectoEFCore.AccesoDatos;
 using ProyectoEFCore.Dto.Request;
 using ProyectoEFCore.Dto.Response;
@@ -9,17 +11,32 @@ namespace ProyectoEFCore.Services
     public class PeliculaService : IPeliculaService
     {
         private readonly CinePlexDbContext _context;
+        private readonly IMapper _mapper;
 
-        public PeliculaService(CinePlexDbContext context)
+        public PeliculaService(CinePlexDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public async Task<ICollection<Pelicula>> GetAll()
+
+        public async Task<ICollection<PeliculaSingularDto>> GetAll()
         {
+            //return await _context.Set<Pelicula>()
+            //    //.AsTracking() // Sobreescribe la configuracion inicial
+            //    //.Where(p => p.Status) // Ya lo puse en el QueryFilter
+            //    .ToListAsync();
+
+
+            // Manera simple con AutoMapper
+            //return await _context.Set<Pelicula>()
+            //    .ProjectTo<PeliculaSingularDto>(_mapper.ConfigurationProvider)
+            //    .ToListAsync();
+
+            // Manera compleja con AutoMapper
             return await _context.Set<Pelicula>()
-                //.AsTracking() // Sobreescribe la configuracion inicial
-                //.Where(p => p.Status) // Ya lo puse en el QueryFilter
+                .Select(p => _mapper.Map<PeliculaSingularDto>(p))
                 .ToListAsync();
+
         }
 
         public async Task<ICollection<Pelicula>> GetAllIncludeDeleted()

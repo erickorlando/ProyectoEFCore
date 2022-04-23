@@ -6,7 +6,7 @@ namespace ProyectoEFCore.Services;
 
 public interface IPeliculaService
 {
-    Task<ICollection<Pelicula>> GetAll();
+    Task<ICollection<PeliculaSingularDto>> GetAll();
 
     Task<ICollection<Pelicula>> GetAllIncludeDeleted();
     Task<ICollection<PeliculaResponseDto>> Filter(string? nombrePelicula);

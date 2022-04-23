@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoEFCore.AccesoDatos;
 
@@ -11,9 +12,10 @@ using ProyectoEFCore.AccesoDatos;
 namespace ProyectoEFCore.AccesoDatos.Migrations
 {
     [DbContext(typeof(CinePlexDbContext))]
-    partial class CinePlexDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220423152801_RelacionTicketCine")]
+    partial class RelacionTicketCine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,11 +211,6 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<string>("NumeroFactura")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
                     b.Property<int?>("PeliculaIdFk")
                         .HasColumnType("int");
 
@@ -227,9 +224,6 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CineFk");
-
-                    b.HasIndex("NumeroFactura")
-                        .IsUnique();
 
                     b.HasIndex("PeliculaIdFk");
 
