@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoEFCore.AccesoDatos;
 
@@ -11,9 +12,10 @@ using ProyectoEFCore.AccesoDatos;
 namespace ProyectoEFCore.AccesoDatos.Migrations
 {
     [DbContext(typeof(CinePlexDbContext))]
-    partial class CinePlexDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220430005053_SinopsisParaPelicula")]
+    partial class SinopsisParaPelicula
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,32 +63,6 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cine");
-                });
-
-            modelBuilder.Entity("ProyectoEFCore.Entidades.CinePeliculas", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CineId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("EnCartelera")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PeliculaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CineId");
-
-                    b.HasIndex("PeliculaId");
-
-                    b.ToTable("CinePeliculas");
                 });
 
             modelBuilder.Entity("ProyectoEFCore.Entidades.Genero", b =>
@@ -179,33 +155,6 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pelicula");
-                });
-
-            modelBuilder.Entity("ProyectoEFCore.Entidades.PeliculaDetalle", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaFinRodaje")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaInicioRodaje")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NombreDirector")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NombreProductor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PresupuestoInicial")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pelicula", (string)null);
                 });
 
             modelBuilder.Entity("ProyectoEFCore.Entidades.Sala", b =>
@@ -308,25 +257,6 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProyectoEFCore.Entidades.CinePeliculas", b =>
-                {
-                    b.HasOne("ProyectoEFCore.Entidades.Cine", "Cine")
-                        .WithMany("CinePeliculas")
-                        .HasForeignKey("CineId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ProyectoEFCore.Entidades.Pelicula", "Pelicula")
-                        .WithMany("CinePeliculas")
-                        .HasForeignKey("PeliculaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Cine");
-
-                    b.Navigation("Pelicula");
-                });
-
             modelBuilder.Entity("ProyectoEFCore.Entidades.ItemTicket", b =>
                 {
                     b.HasOne("ProyectoEFCore.Entidades.Ticket", "Ticket")
@@ -336,17 +266,6 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                         .IsRequired();
 
                     b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("ProyectoEFCore.Entidades.PeliculaDetalle", b =>
-                {
-                    b.HasOne("ProyectoEFCore.Entidades.Pelicula", "Pelicula")
-                        .WithOne("PeliculaDetalle")
-                        .HasForeignKey("ProyectoEFCore.Entidades.PeliculaDetalle", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pelicula");
                 });
 
             modelBuilder.Entity("ProyectoEFCore.Entidades.Sala", b =>
@@ -380,17 +299,7 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
 
             modelBuilder.Entity("ProyectoEFCore.Entidades.Cine", b =>
                 {
-                    b.Navigation("CinePeliculas");
-
                     b.Navigation("Salas");
-                });
-
-            modelBuilder.Entity("ProyectoEFCore.Entidades.Pelicula", b =>
-                {
-                    b.Navigation("CinePeliculas");
-
-                    b.Navigation("PeliculaDetalle")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

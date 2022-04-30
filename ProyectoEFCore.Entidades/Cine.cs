@@ -7,5 +7,7 @@
         public string Direccion { get; set; }
 
         public HashSet<Sala> Salas { get; set; }
+
+        public HashSet<CinePeliculas> CinePeliculas { get; set; }
     }
 }

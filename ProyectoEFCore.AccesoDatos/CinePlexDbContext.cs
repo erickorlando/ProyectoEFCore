@@ -29,6 +29,8 @@ namespace ProyectoEFCore.AccesoDatos
 
             //modelBuilder.ApplyConfiguration(new SalaConfiguration());
 
+            modelBuilder.Ignore<TicketInfo>();
+
         }
     }
 }

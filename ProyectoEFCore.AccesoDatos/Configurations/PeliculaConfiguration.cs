@@ -20,6 +20,13 @@ public class PeliculaConfiguration : IEntityTypeConfiguration<Pelicula>
             .HasColumnType("date")
             .HasDefaultValueSql("GETDATE()");
 
+        builder.Property(p => p.Sinopsis)
+            .HasMaxLength(1000);
+
+        builder.HasOne(p => p.PeliculaDetalle)
+            .WithOne(x => x.Pelicula)
+            .HasForeignKey<PeliculaDetalle>(p => p.Id);
+
         builder.HasQueryFilter(p => p.Status);
     }
 }

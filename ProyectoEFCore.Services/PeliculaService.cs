@@ -39,6 +39,31 @@ namespace ProyectoEFCore.Services
 
         }
 
+        public async Task<ICollection<PeliculaInformacionDto>> GetAllInformacion()
+        {
+            // Mostrar todas las peliculas con sus generos y sus cines que esten en cartelera.
+            var query = _context.Set<Pelicula>()
+                .Include(p => p.PeliculaDetalle)
+                .Include(p => p.Generos)
+                .Include(p => p.CinePeliculas)
+                .ThenInclude(p => p.Cine)
+                .Where(s => s.CinePeliculas
+                    .Any(p => p.EnCartelera))
+                .Select(p => _mapper.Map<PeliculaInformacionDto>(p));
+                //.Select(p => new PeliculaInformacionDto
+                //{
+                //    NombrePelicula = p.NombrePelicula,
+                //    FechaEstreno = p.FechaEstreno.ToLongDateString(),
+                //    PresupuestoInicial = p.PeliculaDetalle.PresupuestoInicial,
+                //    Sinopsis = p.Sinopsis,
+                //    Cines = p.CinePeliculas.Where(j => j.EnCartelera).Select(x => x.Cine.Nombre).ToList(),
+                //    Generos = p.Generos.Select(x => x.NombreGenero).ToList(),
+                //});
+
+            return await query.ToListAsync();
+
+        }
+
         public async Task<ICollection<Pelicula>> GetAllIncludeDeleted()
         {
             return await _context.Set<Pelicula>()
@@ -113,6 +138,61 @@ namespace ProyectoEFCore.Services
             await _context.SaveChangesAsync();
 
             return pelicula.Id;
+        }
+
+        public async Task UpdateAsync(int id, PeliculaBaseRequestDto request)
+        {
+            // Modelo Conectado de EF Core.
+            // Primero buscamos el registro que pretendemos actualizar.
+            var pelicula = await _context.Set<Pelicula>()
+                .AsTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (pelicula == null)
+                return;
+
+            _mapper.Map(request, pelicula);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(int id, PeliculaDatosAdicionalesDto request)
+        {
+            // Modelo Conectado de EF Core.
+            // Primero buscamos el registro que pretendemos actualizar.
+            var pelicula = await _context.Set<Pelicula>()
+                .Include(p => p.PeliculaDetalle)
+                .AsTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (pelicula == null)
+                return;
+
+            _mapper.Map(request, pelicula);
+            _mapper.Map(request, pelicula.PeliculaDetalle);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task PatchAsync(int id, PeliculaPatchDto request)
+        {
+            var pelicula = await _context.Set<Pelicula>()
+                .AsTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (pelicula == null) return;
+
+            foreach (var requestCine in request.Cines)
+            {
+                var cinePeliculas = new CinePeliculas
+                {
+                    Pelicula = pelicula,
+                    CineId = requestCine
+                };
+                pelicula.CinePeliculas.Add(cinePeliculas);
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)

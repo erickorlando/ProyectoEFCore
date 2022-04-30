@@ -20,6 +20,12 @@ public class PeliculaController : ControllerBase
     {
         return Ok(await _service.GetAll());
     }
+
+    [HttpGet("incluirtodo")]
+    public async Task<IActionResult> GetPeliculas()
+    {
+        return Ok(await _service.GetAllInformacion());
+    }
     
     [HttpGet]
     [Route("[action]")]
@@ -44,6 +50,28 @@ public class PeliculaController : ControllerBase
         {
             Id = pelicula
         });
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Put(int id, [FromBody] PeliculaBaseRequestDto request)
+    {
+        await _service.UpdateAsync(id, request);
+        return Ok();
+    }
+    
+    [HttpPut("datosadicionales/{id:int}")]
+    public async Task<IActionResult> Put(int id, [FromBody] PeliculaDatosAdicionalesDto request)
+    {
+        await _service.UpdateAsync(id, request);
+        return Ok();
+    }
+
+
+    [HttpPatch("{id:int}")]
+    public async Task<IActionResult> Patch(int id, [FromBody] PeliculaPatchDto request)
+    {
+        await _service.PatchAsync(id, request);
+        return Ok();
     }
 
     [HttpDelete]
