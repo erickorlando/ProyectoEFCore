@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoEFCore", "ProyectoEFCore\ProyectoEFCore.csproj", "{CF8D7D08-70F6-4AD8-9CEB-8C7AB4F2813B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoEFCore", "ProyectoEFCore\ProyectoEFCore.csproj", "{CF8D7D08-70F6-4AD8-9CEB-8C7AB4F2813B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoEFCore.Entidades", "ProyectoEFCore.Entidades\ProyectoEFCore.Entidades.csproj", "{9799B233-8FAC-4FD5-9E9B-CABDF315E1A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoEFCore.Entidades", "ProyectoEFCore.Entidades\ProyectoEFCore.Entidades.csproj", "{9799B233-8FAC-4FD5-9E9B-CABDF315E1A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoEFCore.AccesoDatos", "ProyectoEFCore.AccesoDatos\ProyectoEFCore.AccesoDatos.csproj", "{8A2045F5-94FB-4C40-B423-502A4CB59F0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoEFCore.AccesoDatos", "ProyectoEFCore.AccesoDatos\ProyectoEFCore.AccesoDatos.csproj", "{8A2045F5-94FB-4C40-B423-502A4CB59F0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoEFCore.Services", "ProyectoEFCore.Services\ProyectoEFCore.Services.csproj", "{D0B70E98-0177-46AA-BE84-A81B871BFDE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoEFCore.Services", "ProyectoEFCore.Services\ProyectoEFCore.Services.csproj", "{D0B70E98-0177-46AA-BE84-A81B871BFDE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoEFCore.Dto", "ProyectoEFCore.Dto\ProyectoEFCore.Dto.csproj", "{5C4D3CED-2F76-48B9-A5E1-6E8BEDECF7BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoEFCore.Dto", "ProyectoEFCore.Dto\ProyectoEFCore.Dto.csproj", "{5C4D3CED-2F76-48B9-A5E1-6E8BEDECF7BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00. Entidades", "00. Entidades", "{224B6E9D-7A17-400E-ACB3-3EE470851A17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Acceso a Datos", "01. Acceso a Datos", "{D5129F89-19F6-4FAA-90DF-793A07C8B963}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Servicios", "02. Servicios", "{164352C9-32C2-40C5-A09A-806C2107BA7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. WebAPI", "03. WebAPI", "{5991B195-09B7-4635-BD5E-667A76EAB2ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +50,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF8D7D08-70F6-4AD8-9CEB-8C7AB4F2813B} = {5991B195-09B7-4635-BD5E-667A76EAB2ED}
+		{9799B233-8FAC-4FD5-9E9B-CABDF315E1A5} = {224B6E9D-7A17-400E-ACB3-3EE470851A17}
+		{8A2045F5-94FB-4C40-B423-502A4CB59F0D} = {D5129F89-19F6-4FAA-90DF-793A07C8B963}
+		{D0B70E98-0177-46AA-BE84-A81B871BFDE3} = {164352C9-32C2-40C5-A09A-806C2107BA7F}
+		{5C4D3CED-2F76-48B9-A5E1-6E8BEDECF7BA} = {164352C9-32C2-40C5-A09A-806C2107BA7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69CA5917-E019-4D0D-A496-ABA557E11772}

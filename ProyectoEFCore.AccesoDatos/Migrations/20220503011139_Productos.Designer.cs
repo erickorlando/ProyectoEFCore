@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoEFCore.AccesoDatos;
 
@@ -11,9 +12,10 @@ using ProyectoEFCore.AccesoDatos;
 namespace ProyectoEFCore.AccesoDatos.Migrations
 {
     [DbContext(typeof(CinePlexDbContext))]
-    partial class CinePlexDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220503011139_Productos")]
+    partial class Productos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

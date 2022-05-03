@@ -9,6 +9,7 @@ public static class InjectionDependency
     {
         services.AddTransient<IPeliculaService, PeliculaService>();
         services.AddTransient<ITicketService, TicketService>();
+        services.AddTransient<IProductoService, ProductoService>();
 
         return services;
     }

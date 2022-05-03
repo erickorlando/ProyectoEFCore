@@ -70,6 +70,14 @@ namespace ProyectoEFCore.Services
                 .IgnoreQueryFilters()
                 .ToListAsync();
         }
+
+        public async Task<ICollection<PeliculaInfo>> GetPeliculasResumido()
+        {
+            return await _context.Set<PeliculaInfo>()
+                .Where(p => p.NombrePelicula.StartsWith("S"))
+                .ToListAsync();
+        }
+
         public async Task<ICollection<PeliculaResponseDto>> Filter(string? nombrePelicula)
         {
             var query = await _context.Set<Pelicula>()

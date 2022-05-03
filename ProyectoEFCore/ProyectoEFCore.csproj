@@ -22,8 +22,4 @@
     <ProjectReference Include="..\ProyectoEFCore.Services\ProyectoEFCore.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

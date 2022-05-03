@@ -31,6 +31,19 @@ namespace ProyectoEFCore.AccesoDatos
 
             modelBuilder.Ignore<TicketInfo>();
 
+            modelBuilder.Ignore<PeliculaInfo>();
+
+//            var query = @"SELECT 
+//	P.Id, P.NombrePelicula, COUNT(CP.Id) CantidadCines  
+//FROM Peliculas P
+//INNER JOIN CinePeliculas CP ON CP.PeliculaId = CP.PeliculaId
+//AND CP.EnCartelera = 1
+//WHERE P.[Status] = 1
+//GROUP BY P.ID, P.NombrePelicula";
+
+            modelBuilder.Entity<PeliculaInfo>()
+                .HasNoKey()
+                .ToView("PeliculaInfo");
         }
     }
 }

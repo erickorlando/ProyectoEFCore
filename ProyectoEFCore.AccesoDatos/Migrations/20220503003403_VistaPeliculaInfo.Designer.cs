@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoEFCore.AccesoDatos;
 
@@ -11,9 +12,10 @@ using ProyectoEFCore.AccesoDatos;
 namespace ProyectoEFCore.AccesoDatos.Migrations
 {
     [DbContext(typeof(CinePlexDbContext))]
-    partial class CinePlexDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220503003403_VistaPeliculaInfo")]
+    partial class VistaPeliculaInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,42 +222,9 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToView("PeliculaInfo");
-                });
+                    b.ToView(null);
 
-            modelBuilder.Entity("ProyectoEFCore.Entidades.Producto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CodigoSku")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<decimal>("PrecioUnitario")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TipoProducto")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Producto");
-
-                    b.HasDiscriminator<int>("TipoProducto");
+                    b.ToSqlQuery("SELECT \r\n	P.Id, P.NombrePelicula, COUNT(CP.Id) CantidadCines  \r\nFROM Peliculas P\r\nINNER JOIN CinePeliculas CP ON CP.PeliculaId = CP.PeliculaId\r\nAND CP.EnCartelera = 1\r\nWHERE P.[Status] = 1\r\nGROUP BY P.ID, P.NombrePelicula");
                 });
 
             modelBuilder.Entity("ProyectoEFCore.Entidades.Sala", b =>
@@ -341,99 +310,6 @@ namespace ProyectoEFCore.AccesoDatos.Migrations
                     b.HasIndex("PeliculaIdFk");
 
                     b.ToTable("Ticket");
-                });
-
-            modelBuilder.Entity("ProyectoEFCore.Entidades.ProductoMerchandising", b =>
-                {
-                    b.HasBaseType("ProyectoEFCore.Entidades.Producto");
-
-                    b.Property<int>("CantidadSaldo")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("ConExistencias")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DescripcionPromocion")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasDiscriminator().HasValue(1);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CodigoSku = "0349594693",
-                            Nombre = "Camiseta",
-                            PrecioUnitario = 15.5m,
-                            Status = true,
-                            TipoProducto = 0,
-                            CantidadSaldo = 10,
-                            ConExistencias = true,
-                            DescripcionPromocion = "PROMO 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CodigoSku = "03480484",
-                            Nombre = "Vaso de 16oz",
-                            PrecioUnitario = 21.9m,
-                            Status = true,
-                            TipoProducto = 0,
-                            CantidadSaldo = 25,
-                            ConExistencias = true,
-                            DescripcionPromocion = "PROMO 2"
-                        });
-                });
-
-            modelBuilder.Entity("ProyectoEFCore.Entidades.ProductoServicio", b =>
-                {
-                    b.HasBaseType("ProyectoEFCore.Entidades.Producto");
-
-                    b.Property<DateTime?>("FechaServicio")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Observaciones")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasDiscriminator().HasValue(0);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            CodigoSku = "DERG453455",
-                            Nombre = "Alquiler de local",
-                            PrecioUnitario = 2999.99m,
-                            Status = true,
-                            TipoProducto = 0,
-                            Observaciones = "Deja en adelanto $20"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CodigoSku = "XAFG453455",
-                            Nombre = "Compra de entradas en estreno",
-                            PrecioUnitario = 36.80m,
-                            Status = true,
-                            TipoProducto = 0,
-                            Observaciones = "Pelicula nueva en 4K"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CodigoSku = "WUB46455",
-                            Nombre = "XXXXX",
-                            PrecioUnitario = 1.99m,
-                            Status = true,
-                            TipoProducto = 0,
-                            Observaciones = ""
-                        });
                 });
 
             modelBuilder.Entity("GeneroPelicula", b =>

@@ -35,6 +35,13 @@ public class PeliculaController : ControllerBase
     }
 
     [HttpGet]
+    [Route("[action]")]
+    public async Task<IActionResult> GetPeliculasResumidas()
+    {
+        return Ok(await _service.GetPeliculasResumido());
+    }
+
+    [HttpGet]
     [Route("Filter")]
     public async Task<IActionResult> Filter(string? nombre)
     {

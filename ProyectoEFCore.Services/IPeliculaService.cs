@@ -22,4 +22,8 @@ public interface IPeliculaService
     Task UpdateAsync(int id, PeliculaDatosAdicionalesDto request);
     
     Task PatchAsync(int id, PeliculaPatchDto request);
+
+    Task<ICollection<PeliculaInfo>> GetPeliculasResumido();
+
+
 }
